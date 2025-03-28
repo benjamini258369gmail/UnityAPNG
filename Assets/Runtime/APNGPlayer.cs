@@ -360,7 +360,7 @@ public class APNGPlayer : MonoBehaviour
 
         if (imageSource == ImageSource.FromYooAssets)
         {
-            if (YooAssetPackageName != null)
+            if (YooAssetPackageName == null)
             {
                 string error = "YooAssetPackageName = null!";
                 mLoadState = LoadState.ERROR;
