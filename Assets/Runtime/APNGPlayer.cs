@@ -213,7 +213,7 @@ public class APNGPlayer : MonoBehaviour
         }
     }
 
-    [Tooltip("YooAssetPackage名")]
+    [Tooltip("YooAsset包名")]
     public string YooAssetPackageName;
 
     [Tooltip("APNGͼƬ����·��")]
@@ -230,6 +230,10 @@ public class APNGPlayer : MonoBehaviour
     public bool runOnStart = true;
     [Tooltip("�Ƿ��Զ����ţ�Ϊtrue�������ɺ�������ʼ���ţ�Ϊfalse�����ֶ�����Play()�ſ�ʼ����")]
     public bool autoPlay = true;
+
+    [Tooltip("maxLoopCount = 1时，播放结束后是否停留在最后一帧")]
+    public bool stayInLastFrame = true;
+
     [Tooltip("�����ٶȱ���")]
     [Min(0.1f)]
     public float playSpeed = 1.0f;
@@ -560,7 +564,7 @@ public class APNGPlayer : MonoBehaviour
             return;
         mPlayState = PlayState.STOPED;
         //�ָ�����һ֡
-        setCurrentFrameImpl(0);
+        setCurrentFrameImpl(stayInLastFrame && maxLoopCount == 1 ? mFrames.Count - 1 : 0);
         //���ö���ѭ������
         mLoopCount = 0;
     }
