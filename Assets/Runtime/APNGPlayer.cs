@@ -372,27 +372,16 @@ public class APNGPlayer : MonoBehaviour
                 mLoadState = LoadState.PROCESSING;
 
                 ResourcePackage package = YooAssets.TryGetPackage(YooAssetPackageName);
-                AssetHandle handle = package.LoadAssetAsync<Texture2D>(imagePath);
+                RawFileHandle handle = package.LoadRawFileAsync(imagePath);
                 yield return handle;
                 if (handle.Status == EOperationStatus.Succeed)
                 {
-                    Texture2D texture = handle.AssetObject as Texture2D;
-                    if (texture != null)
-                    {
-                        // 获取原始纹理数据（Raw Data）
-                        byte[] rawData = texture.GetRawTextureData();
+                    // 获取原始纹理数据（Raw Data）
+                    byte[] rawData = handle.GetRawFileData();
 
-                        Debug.Log($"Raw Data Length: {rawData.Length}");
+                    Debug.Log($"Raw Data Length: {rawData.Length}");
 
-                        yield return loadAPNG(rawData);
-                    }
-                    else
-                    {
-                        string error = $"YooAssets LoadAssetAsync texture failed! {YooAssetPackageName}, {imagePath}";
-                        mLoadState = LoadState.ERROR;
-                        Debug.LogError(error);
-                        onError?.Invoke(this, error);
-                    }
+                    yield return loadAPNG(rawData);
                 }
                 else
                 {
