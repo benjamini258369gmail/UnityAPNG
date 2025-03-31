@@ -550,10 +550,13 @@ public class APNGPlayer : MonoBehaviour
         mPlayState = PlayState.PLAYING;
     }
 
+    /// 帧数    
+    public int FrameCount => mFrames.Count;
+
     /// <summary>
     /// ֹͣ����
     /// </summary>
-    public void Stop()
+    public void Stop(int? index = null)
     {
         if (!isReady)
         {
@@ -564,7 +567,7 @@ public class APNGPlayer : MonoBehaviour
             return;
         mPlayState = PlayState.STOPED;
         //�ָ�����һ֡
-        setCurrentFrameImpl(stayInLastFrame && maxLoopCount == 1 ? mFrames.Count - 1 : 0);
+        setCurrentFrameImpl(index != null ? (int)index : (stayInLastFrame && maxLoopCount == 1 ? mFrames.Count - 1 : 0));
         //���ö���ѭ������
         mLoopCount = 0;
     }
