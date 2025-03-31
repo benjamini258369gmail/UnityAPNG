@@ -572,6 +572,12 @@ public class APNGPlayer : MonoBehaviour
         mLoopCount = 0;
     }
 
+    public void SetFrame(int? index = null)
+    {
+        //�ָ�����һ֡
+        setCurrentFrameImpl(index != null ? (int)index : 0);
+    }
+
     /// <summary>
     /// ��ͣ����
     /// </summary>
